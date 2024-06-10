@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-user test
+city test
 """
 
 import unittest
