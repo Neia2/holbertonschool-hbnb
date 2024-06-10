@@ -12,8 +12,9 @@ class User(BaseModel):
 
     def __init__(self, email, first_name, last_name):
         if email in User.email_set:
-            raise ValueError("Email already exists")
+            raise Exception("Email already exists")
 
+        super().__init__()
         self.email = email 
         self.first_name = first_name
         self.last_name = last_name

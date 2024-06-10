@@ -27,11 +27,12 @@ class DataManager(IPersistenceManager):
         if isinstance(obj, datetime):
             return obj.isoformat()
         return obj.__dict__
+
     def save(self, entity):
         entity_type = type(entity).__name__.lower()
         if entity_type not in self.data:
             self.data[entity_type] = []
-        self.data[entity_type].append(entity.__dict__)
+        self.data[entity_type].append(entity.to_dict())
         self._save_data()
 
     def get(self, entity_id, entity_type):
@@ -46,7 +47,7 @@ class DataManager(IPersistenceManager):
         entities = self.data.get(entity_type, [])
         for i, existing_entity in enumerate(entities):
             if existing_entity['id'] == entity.id:
-                entities[i] = entity.__dict__
+                entities[i] = entity.to_dict()
                 break
         self._save_data()
 
