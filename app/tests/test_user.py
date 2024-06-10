@@ -9,7 +9,8 @@ from app.persistence.data_manager import DataManager
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.data_manager = DataManager('test_data.json')
+        User.email_set.clear()
+        self.data_manager = DataManager('test_data.json', {})
 
     def tearDown(self):
         import os

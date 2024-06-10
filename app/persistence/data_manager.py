@@ -3,7 +3,8 @@
 Data Manager
 """
 
-from ipersistence_manager import IPersistenceManager
+from datetime import datetime
+from .ipersistence_manager import IPersistenceManager
 import json
 
 class DataManager(IPersistenceManager):
@@ -20,8 +21,12 @@ class DataManager(IPersistenceManager):
 
     def _save_data(self):
         with open(self.storage_file, 'w') as f:
-            json.dump(self.data, f)
+            json.dump(self.data, f, default=self._json_serializer)
 
+    def _json_serializer(self, obj):
+        if isinstance(obj, datetime):
+            return obj.isoformat()
+        return obj.__dict__
     def save(self, entity):
         entity_type = type(entity).__name__.lower()
         if entity_type not in self.data:

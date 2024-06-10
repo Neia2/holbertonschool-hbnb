@@ -3,7 +3,7 @@
 User routes
 """
 
-from flask import Flask, request, jsonify
+from flask import Flask, Blueprint, request, jsonify
 from app.models.user import User
 from app.persistence.data_manager import DataManager
 
