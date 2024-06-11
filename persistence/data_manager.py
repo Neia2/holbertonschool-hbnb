@@ -1,4 +1,5 @@
-from persistence.i_persistence_manager.py import IPersistenceManager
+from persistence.i_persistence_manager import IPersistenceManager
+
 import json
 import os
 
