@@ -35,5 +35,5 @@ class Place(BaseModel):
             'num_rooms': self.num_rooms,
             'num_bathrooms': self.num_bathrooms,
             'price_per_night': self.price_per_night,
-            
+            'max_guests': self.max_guests            
         }

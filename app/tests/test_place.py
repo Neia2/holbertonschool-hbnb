@@ -17,27 +17,66 @@ class TestPlace(unittest.TestCase):
             os.remove('test_place_data.json')
 
     def test_create_place(self):
-        review = Review('Babar', 'Maison de Babar', '5', 'Good place' )
-        self.data_manager.save(review)
-        retrieved_review = self.data_manager.get(review.id, 'review')
-        self.assertIsNotNone(retrieved_review)
-        self.assertEqual(retrieved_review['rating'], '5')
+        place = Place(
+            name='Lovely Apartment',
+            description='A lovely apartment in the city center.',
+            address='123 Main St, Cityville',
+            city_id='city_123',
+            latitude=37.7749,
+            longitude=-122.4194,
+            host_id='host_123',
+            num_rooms=2,
+            num_bathrooms=1,
+            price_per_night=100,
+            max_guest=4
+        )
+        self.data_manager.save(place)
+        retrieved_place = self.data_manager.get(place.id, 'place')
+        self.assertIsNotNone(retrieved_place)
+        self.assertEqual(retrieved_place['name'], 'Lovely Apartment')
+        self.assertEqual(retrieved_place['max_guests'], 4)
 
-    def test_update_review(self):
-        review = Review('Dink', 'Maison de Dink', '1', 'Bad place' )
-        self.data_manager.save(review)
-        review.rating = '3'
-        self.data_manager.update(review)
-        retrieved_review = self.data_manager.get(review.id, 'review')
-        self.assertIsNotNone(retrieved_review)
-        self.assertEqual(retrieved_review['rating'], '3')
+    def test_update_place(self):
+        place = Place(
+            name='Lovely Apartment',
+            description='A lovely apartment in the city center.',
+            address='123 Main St, Cityville',
+            city_id='city_123',
+            latitude=37.7749,
+            longitude=-122.4194,
+            host_id='host_123',
+            num_rooms=2,
+            num_bathrooms=1,
+            price_per_night=100,
+            max_guest=4
+        )
+        self.data_manager.save(place)
+        place.name = 'Updated Apartment'
+        place.price_per_night = 120
+        self.data_manager.update(place)
+        retrieved_place = self.data_manager.get(place.id, 'place')
+        self.assertIsNotNone(retrieved_place)
+        self.assertEqual(retrieved_place['name'], 'Updated Apartment')
+        self.assertEqual(retrieved_place['price_per_night'], 120)
 
-    def test_delete_review(self):
-        review = Review('Hulk', 'Maison de Hulk', '4', 'Nice place' )
-        self.data_manager.save(review)
-        self.data_manager.delete(review.id, 'review')
-        retrieved_review = self.data_manager.get(review.id, 'review')
-        self.assertIsNone(retrieved_review)
+    def test_delete_place(self):
+        place = Place(
+            name='Lovely Apartment',
+            description='A lovely apartment in the city center.',
+            address='123 Main St, Cityville',
+            city_id='city_123',
+            latitude=37.7749,
+            longitude=-122.4194,
+            host_id='host_123',
+            num_rooms=2,
+            num_bathrooms=1,
+            price_per_night=100,
+            max_guest=4
+        )
+        self.data_manager.save(place)
+        self.data_manager.delete(place.id, 'place')
+        retrieved_place = self.data_manager.get(place.id, 'place')
+        self.assertIsNone(retrieved_place)
 
 if __name__ == '__main__':
     unittest.main()
