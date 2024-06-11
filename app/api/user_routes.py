@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import Blueprint, request, jsonify
 from models.user import User
 from persistence.data_manager import DataManager

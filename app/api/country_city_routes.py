@@ -1,8 +1,10 @@
+#!/usr/bin/python3
+
 from flask import Blueprint, request, jsonify
-from models.country import Country
-from models.city import City
-from models.country import Country
-from persistence.data_manager import DataManager
+from app.models.country import Country
+from app.models.city import City
+from app.models.countries_data import COUNTRIES
+from app.persistence.data_manager import DataManager
 import uuid
 from datetime import datetime
 
@@ -10,7 +12,7 @@ country_city_routes = Blueprint('country_city_routes', __name__)
 data_manager = DataManager()
 
 # Pre-load countries on ISO 3166-1 standard
-for country in Country:
+for country in COUNTRIES:
     data_manager.save(Country(**country))
 
 @country_city_routes.route('/countries', methods=['GET'])
