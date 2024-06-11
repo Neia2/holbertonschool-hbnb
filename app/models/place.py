@@ -19,4 +19,4 @@ class Place(BaseModel):
         self.num_rooms = num_rooms
         self.num_bathrooms = num_bathrooms
         self.price_per_night = price_per_night
-        self.max_guests = max_guests
+        self.max_guests = max_guest
