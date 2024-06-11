@@ -30,6 +30,11 @@ class DataManager(IPersistenceManager):
             return self.data[entity_type][entity_id]
         return None
 
+    def get_all(self, entity_type):
+        if entity_type in self.data:
+            return list(self.data[entity_type].values())
+        return []
+
     def update(self, entity):
         entity_type = type(entity).__name__
         if entity_type in self.data and entity.id in self.data[entity_type]:
