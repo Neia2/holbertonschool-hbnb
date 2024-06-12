@@ -29,7 +29,7 @@ class Place(BaseModel):
             'updated_at': self.updated_at.isoformat(),
             'name': self.name,
             'description': self.description,
-            'adress': self.address,
+            'address': self.address,
             'city_id': self.city_id,
             'host_id': self.host_id,
             'latitude': self.latitude,
