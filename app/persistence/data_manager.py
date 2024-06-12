@@ -2,57 +2,56 @@
 """
 Data Manager
 """
-
-from datetime import datetime
 from .ipersistence_manager import IPersistenceManager
+from datetime import datetime
 import json
+import os
 
 class DataManager(IPersistenceManager):
-    def __init__(self, storage_file, data):
-        self.storage_file = storage_file
+    def __init__(self, storage_path='data.json'):
+        self.storage_path = storage_path
         self.data = self._load_data()
 
     def _load_data(self):
-        try:
-            with open(self.storage_file, 'r') as f:
-                return json.load(f)
-        except FileNotFoundError:
-            return {}
+        if os.path.exists(self.storage_path):
+            with open(self.storage_path, 'r') as file:
+                return json.load(file)
+        return {}
 
     def _save_data(self):
-        with open(self.storage_file, 'w') as f:
-            json.dump(self.data, f, default=self._json_serializer)
+        with open(self.storage_path, 'w') as file:
+            json.dump(self.data, file, default=self._json_serial)
 
-    def _json_serializer(self, obj):
+    def _json_serial(self, obj):
+        """JSON serializer for objects not serializable by default json code"""
         if isinstance(obj, datetime):
             return obj.isoformat()
-        return obj.__dict__
+        raise TypeError(f"Type {obj} not serializable")
 
     def save(self, entity):
-        entity_type = type(entity).__name__.lower()
+        entity_type = type(entity).__name__
         if entity_type not in self.data:
-            self.data[entity_type] = []
-        self.data[entity_type].append(entity.to_dict())
+            self.data[entity_type] = {}
+        self.data[entity_type][entity.id] = entity.__dict__
         self._save_data()
 
     def get(self, entity_id, entity_type):
-        entity_type = entity_type.lower()
-        for entity in self.data.get(entity_type, []):
-            if entity['id'] == entity_id:
-                return entity
+        if entity_type in self.data and entity_id in self.data[entity_type]:
+            return self.data[entity_type][entity_id]
         return None
 
+    def get_all(self, entity_type):
+        if (entity_type in self.data):
+            return list(self.data[entity_type].values())
+        return []
+
     def update(self, entity):
-        entity_type = type(entity).__name__.lower()
-        entities = self.data.get(entity_type, [])
-        for i, existing_entity in enumerate(entities):
-            if existing_entity['id'] == entity.id:
-                entities[i] = entity.to_dict()
-                break
-        self._save_data()
+        entity_type = type(entity).__name__
+        if (entity_type in self.data and entity.id in self.data[entity_type]):
+            self.data[entity_type][entity.id] = entity.__dict__
+            self._save_data()
 
     def delete(self, entity_id, entity_type):
-        entity_type = entity_type.lower()
-        entities = self.data.get(entity_type, [])
-        self.data[entity_type] = [e for e in entities if e['id'] != entity_id]
-        self._save_data()
+        if (entity_type in self.data and entity_id in self.data[entity_type]):
+            del self.data[entity_type][entity_id]
+            self._save_data()

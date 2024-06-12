@@ -1,5 +1,7 @@
+#!/usr/bin/python3
+
 from flask import Flask
-from .api.country_city_routes import country_city_routes
+from app.routes.country_city_routes import country_city_routes
 
 app = Flask(__name__)
 app.register_blueprint(country_city_routes)
