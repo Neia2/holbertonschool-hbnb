@@ -10,7 +10,7 @@ import os
 
 class TestPlace(unittest.TestCase):
     def setUp(self):
-        self.data_manager = DataManager('test_place_data.json', {})
+        self.data_manager = DataManager('test_place_data.json')
 
     def tearDown(self):
         if os.path.exists('test_place_data.json'):

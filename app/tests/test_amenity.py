@@ -10,7 +10,7 @@ import os
 
 class TestAmenity(unittest.TestCase):
     def setUp(self):
-        self.data_manager = DataManager('test_amenity_data.json', {})
+        self.data_manager = DataManager('test_amenity_data.json')
 
     def tearDown(self):
         if os.path.exists('test_amenity_data.json'):

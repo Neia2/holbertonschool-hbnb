@@ -10,7 +10,7 @@ import os
 
 class TestCountry(unittest.TestCase):
     def setUp(self):
-        self.data_manager = DataManager('test_country_data.json', {})
+        self.data_manager = DataManager('test_country_data.json')
 
     def tearDown(self):
         if os.path.exists('test_country_data.json'):

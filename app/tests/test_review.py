@@ -10,7 +10,7 @@ import os
 
 class TestReview(unittest.TestCase):
     def setUp(self):
-        self.data_manager = DataManager('test_review_data.json', {})
+        self.data_manager = DataManager('test_review_data.json')
 
     def tearDown(self):
         if os.path.exists('test_review_data.json'):

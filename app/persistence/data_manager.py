@@ -29,15 +29,17 @@ class DataManager(IPersistenceManager):
         raise TypeError(f"Type {obj} not serializable")
 
     def save(self, entity):
-        entity_type = type(entity).__name__
+        entity_type = type(entity).__name__.lower()
         if entity_type not in self.data:
-            self.data[entity_type] = {}
-        self.data[entity_type][entity.id] = entity.__dict__
+            self.data[entity_type] = []
+        self.data[entity_type].append(entity.__dict__)
         self._save_data()
 
     def get(self, entity_id, entity_type):
-        if entity_type in self.data and entity_id in self.data[entity_type]:
-            return self.data[entity_type][entity_id]
+        entity_type = entity_type.lower()
+        for entity in self.data.get(entity_type, []):
+            if entity['id'] == entity_id:
+                return entity
         return None
 
     def get_all(self, entity_type):
@@ -46,12 +48,16 @@ class DataManager(IPersistenceManager):
         return []
 
     def update(self, entity):
-        entity_type = type(entity).__name__
-        if (entity_type in self.data and entity.id in self.data[entity_type]):
-            self.data[entity_type][entity.id] = entity.__dict__
-            self._save_data()
+        entity_type = type(entity).__name__.lower()
+        entities = self.data.get(entity_type, [])
+        for i, existing_entity in enumerate(entities):
+            if existing_entity['id'] == entity.id:
+                entities[i] = entity.__dict__
+                break
+        self._save_data()
 
     def delete(self, entity_id, entity_type):
-        if (entity_type in self.data and entity_id in self.data[entity_type]):
-            del self.data[entity_type][entity_id]
-            self._save_data()
+        entity_type = entity_type.lower()
+        entities = self.data.get(entity_type, [])
+        self.data[entity_type] = [e for e in entities if e['id'] != entity_id]
+        self._save_data()

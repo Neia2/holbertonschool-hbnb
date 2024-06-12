@@ -25,6 +25,8 @@ class Place(BaseModel):
     def to_dict(self):
         return {
             'id': str(self.id),
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat(),
             'name': self.name,
             'description': self.description,
             'adress': self.address,

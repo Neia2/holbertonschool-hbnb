@@ -16,6 +16,8 @@ class Review(BaseModel):
     def to_dict(self):
         return {
             'id': str(self.id),
+            'created_at': self.created_at.isoformat(),
+            'updated_at': self.updated_at.isoformat(),
             'place': self.place_id,
             'rating': self.rating,
             'comment': self.comment

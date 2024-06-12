@@ -11,7 +11,7 @@ import os
 class TestUser(unittest.TestCase):
     def setUp(self):
         User.email_set.clear()
-        self.data_manager = DataManager('test_data.json', {})
+        self.data_manager = DataManager('test_data.json')
 
     def tearDown(self):
         if os.path.exists('test_data.json'):
