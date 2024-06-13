@@ -43,10 +43,23 @@ class DataManager:
         except Exception as e:
             print(f"Error saving data: {e}")
 
+<<<<<<< HEAD
 class Country:
     def __init__(self, name, code):
         self.name = name
         self.code = code
+=======
+    def get_all(self, entity_type):
+        if entity_type in self.data:
+            return list(self.data[entity_type].values())
+        return []
+
+    def update(self, entity):
+        entity_type = type(entity).__name__
+        if entity_type in self.data and entity.id in self.data[entity_type]:
+            self.data[entity_type][entity.id] = entity.__dict__
+            self._save_data()
+>>>>>>> origin/matrix
 
     def to_dict(self):
         return {

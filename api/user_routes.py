@@ -12,10 +12,10 @@ def validate_email(email):
 def validate_user_data(data):
     if 'email' not in data or not validate_email(data['email']):
         return False, "Invalid or missing email"
-    if 'first_name' not in data or not data['first_name']:
-        return False, "First name is required"
-    if 'last_name' not in data or not data['last_name']:
-        return False, "Last name is required"
+    if 'full_name' not in data or not data['full_name']:
+        return False, "Full name is required"
+    if 'password' not in data or not data['password']:
+        return False, "Password is required"
     return True, ""
 
 @user_routes.route('/users', methods=['POST'])
@@ -28,14 +28,14 @@ def create_user():
     if data_manager.get(data['email'], 'User'):
         return jsonify({'error': 'Email already exists'}), 409
 
-    user = User(email=data['email'], first_name=data['first_name'], last_name=data['last_name'])
+    user = User(email=data['email'], full_name=data['full_name'], password=data['password'])
     data_manager.save(user)
-    return jsonify(user.to_dict()), 201
+    return jsonify(user.__dict__), 201
 
 @user_routes.route('/users', methods=['GET'])
 def get_users():
     users = data_manager.get_all('User')
-    return jsonify([user for user in users]), 200
+    return jsonify(users), 200
 
 @user_routes.route('/users/<user_id>', methods=['GET'])
 def get_user(user_id):
@@ -51,13 +51,14 @@ def update_user(user_id):
     if not is_valid:
         return jsonify({'error': message}), 400
 
-    user = data_manager.get(user_id, 'User')
-    if not user:
+    user_data = data_manager.get(user_id, 'User')
+    if not user_data:
         return jsonify({'error': 'User not found'}), 404
 
-    user.update(email=data['email'], first_name=data['first_name'], last_name=data['last_name'])
+    user = User(**user_data)
+    user.update(email=data['email'], full_name=data['full_name'], password=data['password'])
     data_manager.update(user)
-    return jsonify(user.to_dict()), 200
+    return jsonify(user.__dict__), 200
 
 @user_routes.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
