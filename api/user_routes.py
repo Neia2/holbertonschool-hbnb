@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from models.user import User
 from persistence.data_manager import DataManager
-import re
 
 user_routes = Blueprint('user_routes', __name__)
 data_manager = DataManager()
