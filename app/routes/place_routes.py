@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 
 from flask import Blueprint, request, jsonify
-from models.place import Place
-from models.amenity import Amenity
-from persistence.data_manager import DataManager
+from app.models.place import Place
+from app.models.amenity import Amenity
+from app.persistence.data_manager import DataManager
 
 place_routes = Blueprint('place_routes', __name__)
 data_manager = DataManager()
