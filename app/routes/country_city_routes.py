@@ -10,6 +10,7 @@ from datetime import datetime
 
 country_city_routes = Blueprint('country_city_routes', __name__)
 data_manager = DataManager()
+DATA_FILE = "data_country_city.json"
 
 # Pre-load countries on ISO 3166-1 standard
 for country in COUNTRIES:
@@ -56,6 +57,7 @@ def create_city():
         updated_at=datetime.utcnow()
     )
     data_manager.save(city)
+    data_manager._save_data(DATA_FILE)
     return jsonify(city.to_dict()), 201
 
 @country_city_routes.route('/cities', methods=['GET'])
@@ -94,6 +96,7 @@ def update_city(city_id):
         updated_at=datetime.utcnow()
     )
     data_manager.update(city)
+    data_manager._save_data(DATA_FILE)
     return jsonify(city.to_dict()), 200
 
 @country_city_routes.route('/cities/<city_id>', methods=['DELETE'])
@@ -103,6 +106,7 @@ def delete_city(city_id):
         return jsonify({'error': 'City not found'}), 404
 
     data_manager.delete(city_id, 'City')
+    data_manager._save_data(DATA_FILE)
     return '', 204
 
 def validate_city_data(data):

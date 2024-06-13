@@ -16,6 +16,5 @@ app.register_blueprint(review_routes)
 def index():
     return 'Welcome to the Country and City API'
 
-
 if __name__ == '__main__':
     app.run(debug=True)
