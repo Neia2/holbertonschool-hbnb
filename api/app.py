@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Flask
 from api.country_city_routes import country_city_routes
 from .user_routes import user_routes

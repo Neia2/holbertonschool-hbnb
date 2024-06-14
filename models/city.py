@@ -1,4 +1,4 @@
-# models/city.py
+#!/usr/bin/python3
 
 class City:
     def __init__(self, id, name, country_code, created_at, updated_at):

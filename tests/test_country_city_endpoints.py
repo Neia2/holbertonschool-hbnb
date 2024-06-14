@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import unittest
 from flask import Flask
 from api.country_city_routes import country_city_routes

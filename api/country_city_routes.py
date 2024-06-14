@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from flask import Blueprint, request, jsonify
 from models.country import Country
 from models.city import City

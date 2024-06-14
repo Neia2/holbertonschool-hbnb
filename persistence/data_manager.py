@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from persistence.i_persistence_manager import IPersistenceManager
 
 import json

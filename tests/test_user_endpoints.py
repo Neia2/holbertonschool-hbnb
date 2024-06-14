@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import unittest
 from flask import Flask
 from api.user_routes import user_routes
