@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # tests/test_country_city_endpoints.py
 import unittest
 from app import app, db
