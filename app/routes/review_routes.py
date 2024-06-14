@@ -10,7 +10,7 @@ review_routes = Blueprint('review_routes', __name__)
 data_manager = DataManager()
 DATA_FILE = "data_review.json"
 
-@review_routes.route('/places', methods=['POST'])
+@review_routes.route('/reviews', methods=['POST'])
 def create_place(self):
     data = request.json
     user_id = data.get('user_id')
