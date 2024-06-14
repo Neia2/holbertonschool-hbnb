@@ -1,11 +1,10 @@
-# api/v1/views/places.py
-
+# api/v1/places.py
 from flask import jsonify, request, abort
 from models import storage
 from models.place import Place
 from models.city import City
 from models.amenity import Amenity
-from api.v1.views import app_views
+from api.v1 import app_views
 
 @app_views.route('/places', methods=['POST'], strict_slashes=False)
 def create_place():

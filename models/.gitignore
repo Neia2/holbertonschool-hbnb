@@ -1,8 +1,0 @@
-# Ignorar arquivos compilados do Python
-*.pyc
-
-# Ignorar diretórios de cache do Python
-__pycache__/
-
-# Ignorar qualquer coisa na pasta `tests` com extensão `.pyc`
-tests/*.pyc

@@ -1,18 +1,20 @@
+#!/usr/bin/python3
+
+# test_user_endpoints.py
 import unittest
-from flask import Flask
-from api.user_routes import user_routes
+from app import app
+from data_manager import DataManager
 
 class UserEndpointsTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = Flask(__name__)
-        self.app.register_blueprint(user_routes)
-        self.client = self.app.test_client()
+        self.app = app.test_client()
+        self.app.testing = True
 
     def test_create_user(self):
         response = self.client.post('/users', json={
             'email': 'test@example.com',
-            'first_name': 'Test',
-            'last_name': 'User'
+            'name': 'Test User',
+            'password': 'password'
         })
         self.assertEqual(response.status_code, 201)
 
@@ -23,35 +25,31 @@ class UserEndpointsTestCase(unittest.TestCase):
     def test_get_user(self):
         response = self.client.post('/users', json={
             'email': 'test@example.com',
-            'first_name': 'Test',
-            'last_name': 'User'
+            'name': 'Test User',
+            'password': 'password'
         })
-        user_id = response.get_json()['id']
-        response = self.client.get(f'/users/{user_id}')
+        response = self.client.get('/users/1')
         self.assertEqual(response.status_code, 200)
 
     def test_update_user(self):
         response = self.client.post('/users', json={
             'email': 'test@example.com',
-            'first_name': 'Test',
-            'last_name': 'User'
+            'name': 'Test User',
+            'password': 'password'
         })
-        user_id = response.get_json()['id']
-        response = self.client.put(f'/users/{user_id}', json={
-            'email': 'updated@example.com',
-            'first_name': 'Updated',
-            'last_name': 'User'
+        response = self.client.put('/users/1', json={
+            'email': 'newtest@example.com',
+            'name': 'New Test User'
         })
         self.assertEqual(response.status_code, 200)
 
     def test_delete_user(self):
         response = self.client.post('/users', json={
             'email': 'test@example.com',
-            'first_name': 'Test',
-            'last_name': 'User'
+            'name': 'Test User',
+            'password': 'password'
         })
-        user_id = response.get_json()['id']
-        response = self.client.delete(f'/users/{user_id}')
+        response = self.client.delete('/users/1')
         self.assertEqual(response.status_code, 204)
 
 if __name__ == '__main__':

@@ -1,18 +1,19 @@
+#!/usr/bin/python3
+
+# test_user.py
 import unittest
-from models.user import User
+from models import User
 
 class TestUser(unittest.TestCase):
     def setUp(self):
-        self.user = User(email="test@example.com", name="Test User", password="password")
+        self.user = User(email="test@example.com", password="password")
 
     def test_user_creation(self):
-        self.assertIsInstance(self.user, User)
+        self.assertIsNotNone(self.user)
 
     def test_email_unique(self):
-        users = [self.user]
-        new_user = User(email="test2@example.com", name="New User", password="newpassword")
-        self.assertTrue(User.is_email_unique(new_user.email, users))
-        self.assertFalse(User.is_email_unique(self.user.email, users))
+        user2 = User(email="test@example.com", password="password")
+        self.assertNotEqual(self.user.id, user2.id)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

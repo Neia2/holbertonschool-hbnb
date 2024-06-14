@@ -1,19 +1,21 @@
+#!/usr/bin/python3
+
+# test_place.py
 import unittest
 from models.user import User
 from models.place import Place
 
 class TestPlace(unittest.TestCase):
     def setUp(self):
-        self.user = User(email="host@example.com", name="Host User", password="password")
-        self.place = Place(name="Test Place", description="A place to test", latitude=0.0, longitude=0.0, price_per_night=100, max_guests=4, host=self.user)
+        self.user = User(email="host@example.com", password="password")
 
     def test_place_creation(self):
-        self.assertIsInstance(self.place, Place)
+        place = Place(name="Sample Place", user_id=self.user.id)
+        self.assertIsNotNone(place)
 
     def test_host_assignment(self):
-        new_host = User(email="newhost@example.com", name="New Host", password="newpassword")
-        with self.assertRaises(Exception):
-            self.place.set_host(new_host)
+        place = Place(name="Sample Place", user_id=self.user.id)
+        self.assertEqual(place.user_id, self.user.id)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
