@@ -28,8 +28,8 @@ class Place:
             if hasattr(self, key):
                 setattr(self, key, value)
         self.updated_at = datetime.now()
-
-		  def set_host(self, host):
+        
+    def set_host(self, host):
         if not isinstance(self.host, User):
             self.host = host
         else:
