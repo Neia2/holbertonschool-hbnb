@@ -17,4 +17,3 @@ class BaseModel:
 
     def update(self):
         self.updated_at = datetime.now()
-        DataManager().update(self)

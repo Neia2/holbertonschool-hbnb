@@ -7,7 +7,6 @@ from app.persistence.data_manager import DataManager
 
 place_routes = Blueprint('place_routes', __name__)
 data_manager = DataManager()
-DATA_FILE = "data_place.json"
 
 @place_routes.route('/places', methods=['POST'])
 def create_place(self):
@@ -42,7 +41,6 @@ def create_place(self):
                   longitude=data['longitude'], num_rooms=data['num_rooms'], num_bathrooms=data['num_bathrooms'],
                   price_per_night=data['price_per_night'], max_guests=data['max_guests'])
     data_manager.save(place)
-    data_manager._save_data(DATA_FILE)
     return jsonify(place.to_dict()), 201
 
 # Retrieve a list of all places
@@ -68,7 +66,6 @@ def update_place(place_id):
     if place:
         updated_place = Place(id=place_id, **data)
         data_manager.update(updated_place)
-        data_manager._save_data(DATA_FILE)
         return jsonify({'message': 'Place updated successfully'}), 200
     else:
         return jsonify({'message': 'Place not found'}), 404
@@ -77,5 +74,4 @@ def update_place(place_id):
 @place_routes.route('/places/<place_id>', methods=['DELETE'])
 def delete_place(place_id):
     data_manager.delete(place_id, 'place')
-    data_manager._save_data(DATA_FILE)
     return jsonify({'message': 'Place deleted successfully'}), 204

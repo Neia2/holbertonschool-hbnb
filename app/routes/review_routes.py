@@ -8,7 +8,6 @@ from app.persistence.data_manager import DataManager
 
 review_routes = Blueprint('review_routes', __name__)
 data_manager = DataManager()
-DATA_FILE = "data_review.json"
 
 @review_routes.route('/reviews', methods=['POST'])
 def create_place(self):
@@ -37,7 +36,6 @@ def create_place(self):
 
     review = Review(place_id=place_id, user_id=user_id, rating=rating, comment=comment)
     data_manager.save(review)
-    data_manager._save_data(DATA_FILE)
     return jsonify(review.to_dict()), 201
 
 @review_routes.route('/users/<user_id>/reviews', methods=['GET'])
@@ -78,7 +76,6 @@ def update_review(review_id):
         if key in review:
             review[key] = value
     data_manager.update(review)
-    data_manager._save_data(DATA_FILE)
     return jsonify({'message': 'Review updated successfully'}), 200
 
 @review_routes.route('/reviews/<review_id>', methods=['DELETE'])
@@ -87,5 +84,4 @@ def delete_review(review_id):
         return jsonify({'message': 'Review not found'}), 404
 
     data_manager.delete(review_id, 'review')
-    data_manager._save_data(DATA_FILE)
     return jsonify({'message': 'Review deleted successfully'}), 204
