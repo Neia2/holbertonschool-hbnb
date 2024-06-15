@@ -1,17 +1,34 @@
 #!/usr/bin/python3
+"""
+Amenity API Routes
+
+This module defines RESTful API routes for managing amenities
+using Flask-RESTx.
+It includes endpoints for listing, creating, updating, and deleting amenities.
+
+Endpoints:
+- GET /amenities: List all amenities.
+- POST /amenities: Create a new amenity.
+- GET /amenities/<id>: Fetch a single amenity by ID.
+- PUT /amenities/<id>: Update an existing amenity by ID.
+- DELETE /amenities/<id>: Delete an amenity by ID.
+"""
 
 from flask import request
 from flask_restx import Namespace, Resource, fields
 from models.amenity import Amenity, db
 
+# Create a Namespace for amenity operations
 amenity_ns = Namespace('amenities', description='Amenity operations')
 
+# Define the data model for Amenity using Flask-RESTx fields
 amenity_model = amenity_ns.model('Amenity', {
     'id': fields.Integer(readonly=True, description='The amenity unique identifier'),
     'name': fields.String(required=True, description='The amenity name'),
     'created_at': fields.DateTime(readonly=True),
     'updated_at': fields.DateTime(readonly=True)
 })
+
 
 @amenity_ns.route('/')
 class AmenityList(Resource):
@@ -35,6 +52,7 @@ class AmenityList(Resource):
         db.session.add(new_amenity)
         db.session.commit()
         return new_amenity.to_dict(), 201
+
 
 @amenity_ns.route('/<int:id>')
 class AmenityResource(Resource):

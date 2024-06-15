@@ -121,6 +121,15 @@ class DataManager(IPersistenceManager):
         self._save_data()
 
     def delete(self, entity_id, entity_type):
+        """
+        Delete an entity from the JSON storage.
+
+        Args:
+        - entity_id (str):
+        The ID of the entity to delete.
+        - entity_type (str):
+        The type of entity.
+        """
         entity_type = entity_type.lower()
         entities = self.data.get(entity_type, [])
         self.data[entity_type] = [e for e in entities if e['id'] != entity_id]
