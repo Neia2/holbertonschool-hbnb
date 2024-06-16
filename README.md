@@ -2,11 +2,28 @@
 
 Holberton School HBNB Project
 
-# Holberton School HBNB Project
+# HBnB Evolution Project: Part 1 Guide
+Welcome to the first leg of our exciting journey - creating our very own web application, HBnB Evolution, modeled after AirBnB using Python and Flask!
 
-## Description
+## What’s Cooking in Part 1?
 
-This project is a Flask-based web application that provides API endpoints for managing places, cities, amenities, and users. It utilizes SQLAlchemy for database management and Flask-Restx for building RESTful APIs.
+# Sketching with UML
+
+You’ll kick things off by drawing out the backbone of our application using UML (Unified Modeling Language). Think of it like creating the architectural blueprint for a building. It’s where you decide how your classes and components will interact.
+
+# Testing Our Logic
+
+After setting up our blueprint, it’s time to make sure everything works as planned. You’ll create tests for the API and business logic. It’s like making sure all the gears turn smoothly in a machine.
+
+# Building the API
+Now, for the real deal - implementing the API. This is where your blueprint comes to life. You’ll use Flask to create an API that plays well with our business logic and file-based persistence (for now).
+
+# File-Based Data Storage
+We’re starting simple with a file-based system for storing our data. Choose your format – text, JSON, XML – you name it. Keep in mind that we’ll shift to a database later, so build it smart!
+
+# Packaging with Docker
+Finally, you’ll wrap everything up in a neat Docker image. It’s like packing your app in a container that can be easily moved and deployed anywhere.
+
 
 The project is organized into the following directories and files:
 
@@ -142,10 +159,7 @@ Contributions are welcome! Please follow these steps to contribute:
 4. Push to the branch: `git push origin my-feature-branch`.
 5. Create a pull request.
 
-## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for more information.
+---------------------------------------------------------------------------------------------------------------------------------------
 
----
-
-Collabotareus: Benjamin Jakob, Neia Nascimento and Soufian Mratz.
+Collaborators: Benjamin Jakob, Neia Nascimento and Soufian Mgratz.
